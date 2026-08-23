@@ -1,0 +1,16 @@
+{
+  "opinion": [
+    { "title": "[MOCK] Why Coordination Costs Are the Real Bottleneck", "url": "https://example.com/mock-opinion-1", "source": "mock-hbr.org", "snippet": "An argument that decision rights, not headcount, are the binding constraint on organizational speed.", "date": "2026-07-15" },
+    { "title": "[MOCK] The Case for Fewer Approval Layers", "url": "https://example.com/mock-opinion-2", "source": "mock-mckinsey.com", "snippet": "Consulting-firm piece arguing that layered approval chains are a structural, not cultural, problem.", "date": "2026-06-20" },
+    { "title": "[MOCK] Frictionless Checkout: A UX Retrospective", "url": "https://example.com/mock-opinion-3", "source": "mock-uxcollective.com", "snippet": "A product design retrospective on reducing checkout steps for e-commerce conversion.", "date": "2026-05-01" },
+    { "title": "[MOCK] Decision Velocity as a Design Variable", "url": "https://example.com/mock-opinion-4", "source": "mock-strategy-business.com", "snippet": "Proposes treating the speed of organizational decisions as an explicit architectural choice.", "date": "2026-08-01" },
+    { "title": "[MOCK] Generic 5 Tips for Better Meetings", "url": "https://example.com/mock-opinion-5", "source": "mock-blog.com", "snippet": "Listicle-style advice on running shorter, more focused meetings.", "date": "unknown" }
+  ],
+  "caseStudy": [
+    { "title": "[MOCK] How Northwind Logistics Cut Approval Layers From Six to Two", "url": "https://example.com/mock-case-1", "source": "mock-hbr.org", "snippet": "A named case study describing a delayering initiative and its measured impact on decision speed.", "date": "2026-07-10" },
+    { "title": "[MOCK] Acme Corp's Pod-Based Restructuring, One Year Later", "url": "https://example.com/mock-case-2", "source": "mock-mckinsey.com", "snippet": "Follow-up analysis of a cross-functional pod structure rollout and its effect on coordination overhead.", "date": "2026-04-12" },
+    { "title": "[MOCK] Generic Vendor Case Study: Our Software Improved Efficiency", "url": "https://example.com/mock-case-3", "source": "mock-vendorblog.com", "snippet": "Thin marketing case study without a named organization or measurable outcome.", "date": "2026-08-05" },
+    { "title": "[MOCK] Spotlight: A Mid-Size Manufacturer's Span-of-Control Redesign", "url": "https://example.com/mock-case-4", "source": "mock-strategy-business.com", "snippet": "Details a manufacturer's decision to widen managerial span of control and the resulting governance changes.", "date": "2026-03-22" },
+    { "title": "[MOCK] Frictionless Payments Case Study: A Fintech's Onboarding Redesign", "url": "https://example.com/mock-case-5", "source": "mock-stripe.com", "snippet": "Payments-onboarding UX case study, not a structural/operating-model change.", "date": "2026-06-30" }
+  ]
+}

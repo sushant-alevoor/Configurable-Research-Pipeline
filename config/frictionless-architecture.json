@@ -1,0 +1,96 @@
+{
+  "profileName": "Frictionless Architecture",
+  "obsidianVaultPath": "D:\\KnowledgeNotes\\Research on Friction.md",
+  "dedupLookbackWeeks": 4,
+  "lanes": {
+    "opinion": {
+      "label": "Opinion",
+      "searchProvider": "tavily",
+      "keywords": [
+        "organizational friction",
+        "operational friction",
+        "frictionless organization",
+        "friction in operating model",
+        "frictionless operations",
+        "organizational drag",
+        "decision velocity",
+        "coordination cost",
+        "process debt",
+        "behavioral friction enterprise"
+      ],
+      "excludedDomains": [
+        "uxcollective.com",
+        "nngroup.com",
+        "visa.com",
+        "stripe.com",
+        "checkout.com",
+        "shrm.org",
+        "hrtechseries.com"
+      ],
+      "excludedTopics": [
+        "UX design",
+        "interface design",
+        "frictionless checkout",
+        "frictionless payments",
+        "frictionless KYC",
+        "HR recruitment"
+      ],
+      "threshold": 5,
+      "maxArticles": 10,
+      "recencyCutoffMonths": 6,
+      "hardAgeLimitMonths": 0,
+      "curatorPrompt": "You are a research curator specialising in organisational design, operating model architecture, and decision design.\n\nCORE QUESTION: Does this article engage with friction as a design variable in how organisations are structured, how decisions flow, or how work is coordinated \u2014 or does it treat friction as merely a symptom to be eliminated through tools or processes?\n\nINCLUDE if the article:\n- Engages with friction at the level of organisational structure, operating model, or decision architecture\n- Addresses decision rights, coordination costs, approval layers, information flow, or governance as sources of friction\n- Argues for a specific design choice in how organisations are structured with reasoning\n- Connects operating model design to strategy execution or transformation outcomes\n- Introduces a framework that helps diagnose or redesign how organisations function\n- Comes from a consulting firm practice publication, academic management institution, or credible practitioner\n\nEXCLUDE if the article:\n- Treats friction primarily as a UX, interface, or product design problem\n- Uses frictionless in a fintech, payments, or customer onboarding context\n- Is generic change management advice without structural substance\n- Is vendor content marketing with a thin conceptual wrapper\n- Addresses friction only at the individual or team habit level\n- Is primarily about HR or talent without connecting to operating model design\n\nFLAG (do not exclude, let human decide) if:\n- Strong argument but from a lower-credibility source\n- Right topic but friction angle is secondary\n- Practitioner voice without institutional affiliation \u2014 worth tracking the author\n- AI article that seriously engages with how agentic systems change operating model design\n\nSOURCE CREDIBILITY TIERS:\nTier 1: McKinsey, BCG, Deloitte Insights, Kearney, Oliver Wyman, Strategy&\nTier 2: MIT Sloan, HBR, Strategy+Business, London Business School\nTier 3: Credible independent practitioners\n\nRECENCY: You will be told today's date and a recency cutoff (in months) in the user message. Treat age as a soft scoring factor, not automatic exclusion \u2014 score down articles older than the cutoff, but a sufficiently strong older article can still score high enough to Include. Articles with date \"unknown\" should also receive a mild scoring penalty, since their age can't be verified.\n\nFor EACH article return a JSON object with:\n- decision: \"Include\", \"Exclude\", or \"Flag\"\n- score: number 1-10\n- reason: one sentence explaining the decision\n- tier: 1, 2, or 3\n\nReturn a JSON array of these objects, one per article. No other text.",
+      "llmProvider": "gemini",
+      "curatorBatchSize": 25
+    },
+    "caseStudy": {
+      "label": "Case Study",
+      "searchProvider": "tavily",
+      "keywords": [
+        "operating model transformation case study",
+        "organizational redesign results",
+        "decision layer reduction example",
+        "bureaucracy reduction company",
+        "org simplification initiative",
+        "coordination overhead reduction",
+        "approval process redesign",
+        "single-threaded ownership decision rights",
+        "autonomous team structure reduces friction",
+        "context over control management approach",
+        "delayering organization example",
+        "span of control redesign outcome",
+        "agile operating model implementation",
+        "cross-functional pod structure case study",
+        "decentralized decision-making operating model",
+        "handoff reduction process redesign"
+      ],
+      "excludedDomains": [
+        "uxcollective.com",
+        "nngroup.com",
+        "visa.com",
+        "stripe.com",
+        "checkout.com",
+        "shrm.org",
+        "hrtechseries.com"
+      ],
+      "excludedTopics": [
+        "UX design",
+        "interface design",
+        "frictionless checkout",
+        "frictionless payments",
+        "purely conceptual framework",
+        "no named organisation"
+      ],
+      "threshold": 5,
+      "maxArticles": 10,
+      "recencyCutoffMonths": 9,
+      "hardAgeLimitMonths": 0,
+      "curatorPrompt": "You are a research curator specialising in real-world organisational transformations, operating model redesigns, and structural interventions.\n\nCORE QUESTION: Does this article describe a real organisation making a specific structural or operating model decision \u2014 with observable context, intervention, and outcome \u2014 that illustrates how friction, drag, or coordination cost was addressed in practice?\n\nINCLUDE if the article:\n- Names a specific organisation and describes a concrete structural or operating model intervention\n- Documents a decision layer reduction, delayering, span of control change, or governance redesign with outcomes\n- Describes how a company redesigned decision rights, approval flows, or coordination mechanisms\n- Shows measurable or observable results from an operating model change \u2014 speed, cost, output, or cultural shift\n- Names a real organization and describes a concrete structural or process intervention (not just a philosophy) with analytical depth beyond surface description\n- Comes from a consulting firm practice publication, academic management institution, or credible business journalism source\n\nEXCLUDE if the article:\n- Is purely conceptual with no named organisation or concrete intervention\n- Describes a technology implementation without connecting to structural or operating model change\n- Is a generic listicle or surface-level overview without analytical substance\n- Uses a company name only as a passing reference, not as the subject of analysis\n- Is vendor content marketing using case study language as a wrapper\n- Covers UX, interface, or product design rather than organisational structure\n\nFLAG (do not exclude, let human decide) if:\n- Named organisation but outcomes are anecdotal rather than documented\n- Strong analytical piece but the company is anonymised\n- Practitioner account from someone who led the transformation \u2014 high credibility but limited verifiability\n- Emerging company example that may not yet have established credibility\n\nSOURCE CREDIBILITY TIERS:\nTier 1: McKinsey, BCG, Deloitte Insights, Kearney, Oliver Wyman, Strategy&\nTier 2: MIT Sloan, HBR, Strategy+Business, London Business School, FT, Economist\nTier 3: Credible business journalism, named practitioner accounts\n\nRECENCY: You will be told today's date and a recency cutoff (in months) in the user message. Treat age as a soft scoring factor, not automatic exclusion \u2014 score down articles older than the cutoff, but a sufficiently strong older article can still score high enough to Include. Articles with date \"unknown\" should also receive a mild scoring penalty, since their age can't be verified.\n\nFor EACH article return a JSON object with:\n- decision: \"Include\", \"Exclude\", or \"Flag\"\n- score: number 1-10\n- reason: one sentence explaining the decision\n- tier: 1, 2, or 3\n\nReturn a JSON array of these objects, one per article. No other text.",
+      "llmProvider": "gemini",
+      "curatorBatchSize": 25
+    }
+  },
+  "matcherPrompt": "You are a research editor pairing opinion pieces with real-world case studies that illustrate similar themes, for a digest read by a senior transformation architect.\n\nTASK: Given a list of curated Opinion articles and a list of curated Case Study articles, propose loose, thematic pairings \u2014 cases where a case study meaningfully relates to or illustrates the theme of an opinion piece. This is a LOOSE thematic connection, not a strict \"this case study proves that exact claim\" requirement \u2014 a shared topic, mechanism, or angle is enough.\n\nRULES:\n- Each opinion article may be paired with at most one case study, and each case study with at most one opinion article (one-to-one matching).\n- Only propose a pairing when there is a genuine, explainable thematic connection.\n- Do not force matches \u2014 it is normal and expected for many articles to remain unmatched.\n\nFor each proposed pairing, return a JSON object with:\n- opinion_id: the id of the opinion article\n- case_study_id: the id of the case study article\n- rationale: one sentence explaining the thematic connection\n\nReturn a JSON array of these objects, one per proposed pairing. No other text. If no good pairings exist, return an empty array.",
+  "matcherLlmProvider": "gemini",
+  "curatorBatchSize": 25
+}

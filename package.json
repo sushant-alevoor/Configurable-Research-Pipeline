@@ -1,0 +1,16 @@
+{
+  "name": "configurable-research-pipeline",
+  "version": "1.0.0",
+  "description": "Configurable agentic research pipeline — search, curate, and match articles by topic profile, with dedup, recency scoring, and a human-in-the-loop review checkpoint.",
+  "type": "module",
+  "main": "pipeline.js",
+  "scripts": {
+    "run": "node pipeline.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

@@ -1,0 +1,47 @@
+name: Run2 - Match & Draft on Approval
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  issues: read
+  contents: write
+
+jobs:
+  match-and-draft:
+    # Only fire for issues our own run1 opened — filtered by label so
+    # closing an unrelated issue in this repo doesn't trigger a run.
+    if: contains(github.event.issue.labels.*.name, 'pending-review')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run match + table generation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
+        run: node run2-match-table.js
+
+      - name: Commit draft to repo
+        run: |
+          git config user.name "research-pipeline-bot"
+          git config user.email "actions@github.com"
+          git add output/*.md
+          git diff --cached --quiet && echo "No draft changes to commit" || git commit -m "Draft: ${{ github.event.issue.title }}"
+          git push
