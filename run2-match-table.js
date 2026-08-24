@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { log } from './lib/util.js';
 import { __dirname, loadConfig, runMatcher, buildMarkdownTables } from './lib/pipelineCore.js';
-import { getIssue, issueNumberFromEnv } from './lib/github.js';
+import { getIssue, issueNumberFromEnv, commentOnIssue } from './lib/github.js';
 import { parseIssueBody } from './lib/issueFormat.js';
 
 /* ============================================================
@@ -55,6 +55,13 @@ async function main() {
 
   log(`Tables generated: ${counts.matched} matched, ${counts.opinion} opinion, ${counts.caseStudy} case study.`, 'ok');
   log(`Draft written to ${outPath} — review it, then append into your Obsidian vault manually.`, 'ok');
+
+  const commentBody = `## 📄 Draft ready — ${profileName} — ${stamp}
+
+${matchedMd}
+${opMd}
+${csMd}`;
+  await commentOnIssue(issueNumber, commentBody);
 }
 
 main().catch(err => {

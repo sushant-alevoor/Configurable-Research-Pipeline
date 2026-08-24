@@ -5,8 +5,8 @@ on:
     types: [closed]
 
 permissions:
-  issues: read
-  contents: write
+  issues: write
+  contents: read
 
 jobs:
   match-and-draft:
@@ -37,11 +37,3 @@ jobs:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
         run: node run2-match-table.js
-
-      - name: Commit draft to repo
-        run: |
-          git config user.name "research-pipeline-bot"
-          git config user.email "actions@github.com"
-          git add output/*.md
-          git diff --cached --quiet && echo "No draft changes to commit" || git commit -m "Draft: ${{ github.event.issue.title }}"
-          git push
