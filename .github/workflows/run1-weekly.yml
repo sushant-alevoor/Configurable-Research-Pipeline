@@ -11,7 +11,7 @@ on:
       profile:
         description: 'Config profile name (matches config/<name>.json)'
         required: false
-        default: 'frictionless-architecture'
+        default: 'organizational-friction'
 
 permissions:
   issues: write
@@ -41,4 +41,4 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
-        run: node run1-search-curate.js "${{ github.event.inputs.profile || 'frictionless-architecture' }}"
+        run: node run1-search-curate.js "${{ github.event.inputs.profile || 'organizational-friction' }}"
