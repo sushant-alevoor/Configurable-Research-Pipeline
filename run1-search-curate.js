@@ -1,8 +1,12 @@
 import 'dotenv/config';
+import path from 'node:path';
 import { log } from './lib/util.js';
-import { loadConfig, loadDedupSet, runSearchLane, runCuratorLane } from './lib/pipelineCore.js';
+import { __dirname, loadConfig, loadDedupSet, runSearchLane, runCuratorLane } from './lib/pipelineCore.js';
+import { loadDedupCache, recordAndSaveDedupCache } from './lib/dedupCache.js';
 import { createIssue } from './lib/github.js';
 import { buildIssueBody } from './lib/issueFormat.js';
+
+const DEDUP_CACHE_PATH = path.join(__dirname, '.dedup-cache', 'seen-urls.json');
 
 /* ============================================================
    RUN 1 — SEARCH + CURATE
@@ -17,12 +21,21 @@ async function main() {
   const { config, profileName } = loadConfig();
   log(`Run1 (Search + Curate) started — profile: ${profileName}`, 'info');
 
-  const dedupSeenUrls = loadDedupSet(config);
+  const lookbackWeeks = config.dedupLookbackWeeks || 4;
+  const vaultDedupUrls = loadDedupSet(config);
+  const urlCache = loadDedupCache(DEDUP_CACHE_PATH, lookbackWeeks);
+  const dedupSeenUrls = new Set([...vaultDedupUrls, ...Object.keys(urlCache)]);
 
   const [opSearch, csSearch] = await Promise.all([
     runSearchLane('opinion', config.lanes.opinion, dedupSeenUrls),
     runSearchLane('caseStudy', config.lanes.caseStudy, dedupSeenUrls)
   ]);
+
+  // Record every URL surfaced by this search (regardless of later curation
+  // decision) so a future run — local or CI — won't resurface it. Done
+  // right after search, not after curation, so this still happens even if
+  // curation later fails on one lane.
+  recordAndSaveDedupCache(DEDUP_CACHE_PATH, urlCache, [...opSearch, ...csSearch].map(r => r.url));
 
   const settled = await Promise.allSettled([
     runCuratorLane(config.lanes.opinion, opSearch),

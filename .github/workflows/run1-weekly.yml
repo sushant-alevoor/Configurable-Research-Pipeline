@@ -32,6 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Restore dedup cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .dedup-cache
+          key: dedup-${{ github.run_id }}
+          restore-keys: |
+            dedup-
+
       - name: Run search + curate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,3 +50,13 @@ jobs:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
         run: node run1-search-curate.js "${{ github.event.inputs.profile || 'organizational-friction' }}"
+
+      # Always save, even if the run above failed after search but before
+      # curation — the point of this cache is "don't re-search a URL we've
+      # already seen," so it should persist regardless of how far the run got.
+      - name: Save dedup cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .dedup-cache
+          key: dedup-${{ github.run_id }}

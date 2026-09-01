@@ -1,5 +1,6 @@
 node_modules/
 .env
 output/
+.dedup-cache/
 *.log
 .DS_Store
