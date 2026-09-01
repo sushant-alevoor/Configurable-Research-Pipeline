@@ -24,10 +24,25 @@ async function main() {
     runSearchLane('caseStudy', config.lanes.caseStudy, dedupSeenUrls)
   ]);
 
-  const [opCurated, csCurated] = await Promise.all([
+  const settled = await Promise.allSettled([
     runCuratorLane(config.lanes.opinion, opSearch),
     runCuratorLane(config.lanes.caseStudy, csSearch)
   ]);
+
+  const laneNames = ['Opinion', 'Case Study'];
+  const [opResult, csResult] = settled;
+  settled.forEach((r, i) => {
+    if (r.status === 'rejected') {
+      log(`Run1: ${laneNames[i]} lane failed after retries and will be skipped this run — ${r.reason?.message || r.reason}`, 'error');
+    }
+  });
+  const opCurated = opResult.status === 'fulfilled' ? opResult.value : [];
+  const csCurated = csResult.status === 'fulfilled' ? csResult.value : [];
+  const bothFailed = opResult.status === 'rejected' && csResult.status === 'rejected';
+
+  if (bothFailed) {
+    throw new Error('Both lanes failed during curation — nothing to review, aborting without opening an Issue.');
+  }
 
   if (opCurated.length === 0 && csCurated.length === 0) {
     log('Run1: nothing found in either lane — skipping Issue creation this run', 'warn');
@@ -36,7 +51,10 @@ async function main() {
 
   const body = buildIssueBody({ profileName, opCurated, csCurated });
   const stamp = new Date().toISOString().slice(0, 10);
-  const title = `Research review — ${profileName} — ${stamp}`;
+  const failedLane = opResult.status === 'rejected' ? 'Opinion' : (csResult.status === 'rejected' ? 'Case Study' : null);
+  const title = failedLane
+    ? `Research review — ${profileName} — ${stamp} (${failedLane} lane failed — partial run)`
+    : `Research review — ${profileName} — ${stamp}`;
 
   const issue = await createIssue({ title, body, labels: ['pending-review'] });
   log(`Run1 complete — review and close Issue #${issue.number} to trigger Match + Table generation.`, 'ok');
