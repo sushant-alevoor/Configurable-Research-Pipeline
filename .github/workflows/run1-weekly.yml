@@ -1,9 +1,9 @@
 name: Run1 - Weekly Search & Curate
 
 on:
-  schedule:
+  #schedule:
     # 06:00 UTC every Monday. Adjust to taste — cron is always UTC.
-    - cron: '0 6 * * 1'
+    # - cron: '0 6 * * 1'
   workflow_dispatch:
     # Lets you trigger a run manually from the Actions tab, e.g. to test
     # this workflow without waiting for the schedule.
