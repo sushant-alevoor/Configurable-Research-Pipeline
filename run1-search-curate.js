@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import path from 'node:path';
 import { log } from './lib/util.js';
-import { __dirname, loadConfig, loadDedupSet, runSearchLane, runCuratorLane } from './lib/pipelineCore.js';
+import { __dirname, loadConfig, loadDedupSet, runSearchLane, runCuratorLane, applyPaymentsUxCap } from './lib/pipelineCore.js';
 import { loadDedupCache, recordAndSaveDedupCache } from './lib/dedupCache.js';
 import { createIssue } from './lib/github.js';
 import { buildIssueBody } from './lib/issueFormat.js';
@@ -49,8 +49,16 @@ async function main() {
       log(`Run1: ${laneNames[i]} lane failed after retries and will be skipped this run — ${r.reason?.message || r.reason}`, 'error');
     }
   });
-  const opCurated = opResult.status === 'fulfilled' ? opResult.value : [];
-  const csCurated = csResult.status === 'fulfilled' ? csResult.value : [];
+  let opCurated = opResult.status === 'fulfilled' ? opResult.value : [];
+  let csCurated = csResult.status === 'fulfilled' ? csResult.value : [];
+
+  // Deterministic payments/UX cap (finance variant only — no-op for any
+  // profile that doesn't define laneConfig.paymentsUxCap). Applied here,
+  // before the Issue body is built, so the human reviewer only ever sees
+  // the already-capped quantity — not trimmed later at run2/match time.
+  opCurated = applyPaymentsUxCap(config.lanes.opinion, opCurated);
+  csCurated = applyPaymentsUxCap(config.lanes.caseStudy, csCurated);
+
   const bothFailed = opResult.status === 'rejected' && csResult.status === 'rejected';
 
   if (bothFailed) {

@@ -16,6 +16,11 @@ import { parseIssueBody } from './lib/issueFormat.js';
    Requires GITHUB_ISSUE_NUMBER env var (set by the workflow from
    github.event.issue.number). Config profile is read from the Issue
    body itself, not from CLI args, since run1 already resolved it.
+
+   NOTE: no changes needed here for the finance/payments-UX-cap variant —
+   the cap is applied upstream in run1-search-curate.js, before the
+   Issue body is built, so this file only ever sees an already-capped
+   Include list and doesn't need to know about laneConfig.category.
 ============================================================ */
 async function main() {
   const issueNumber = issueNumberFromEnv();
