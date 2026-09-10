@@ -1,11 +1,11 @@
 name: Run1 - Weekly Search & Curate (Finance)
 
 on:
-  schedule:
+  #schedule:
     # 06:00 UTC every Wednesday — deliberately offset from the general
     # organizational-friction schedule (Mondays) so the two profiles don't
     # run at the same time and their Issues don't land on the same day.
-    - cron: '0 6 * * 3'
+    #  - cron: '0 6 * * 3'
   workflow_dispatch:
     inputs:
       profile:
