@@ -1,0 +1,68 @@
+{
+  "profileName": "research-agent-friction-ba",
+  "obsidianVaultPath": "D:\\KnowledgeNotes\\Research on BA Friction.md",
+  "dedupLookbackWeeks": 4,
+  "lanes": {
+    "opinion": {
+      "label": "Opinion",
+      "searchProvider": "tavily",
+      "keywords": [
+        "business architecture blind spots",
+        "capability mapping limitations",
+        "operating model design time risk",
+        "business architecture design time friction",
+        "role versus actor modeling gap",
+        "capability heat map limitations",
+        "enterprise architecture static mapping critique",
+        "predictive capability assessment business architecture",
+        "organizational design fault lines",
+        "business architecture pain points versus root cause",
+        "capability cross mapping boundary analysis",
+        "role conflict organizational design",
+        "business architecture value stream friction",
+        "enterprise architecture stress testing design",
+        "BIZBOK capability assessment critique",
+        "role strain organizational psychology design"
+      ],
+      "excludedDomains": [],
+      "excludedTopics": ["UX friction", "consumer product friction", "checkout friction"],
+      "threshold": 0.6,
+      "maxArticles": 8,
+      "recencyCutoffMonths": 18,
+      "hardAgeLimitMonths": 36,
+      "curatorPrompt": "Include pieces that discuss Business Architecture (capability mapping, value stream design, role/actor modeling, cross-mapping, BIZBOK practice) where the article also engages with structural weaknesses, blind spots, or limitations of static mapping approaches -- especially anything on design-time versus post-hoc detection of organisational problems. Favour Business Architecture Guild content, BIZBOK-adjacent practitioner writing, enterprise/business architecture trade press, and organisational psychology sources on role conflict or role strain (e.g. Kahn-lineage literature) where they connect to organisational design rather than pure individual wellbeing framing. Exclude generic digital transformation hype, agentic AI pieces with no structural design angle, and UX/product friction content (different domain). Flag borderline pieces that discuss role ambiguity, accountability conflict, or capability gaps without an explicit design-time framing -- these may still be relevant to a design-time predictive claim.",
+      "llmProvider": "gemini",
+      "curatorBatchSize": 10
+    },
+    "caseStudy": {
+      "label": "Case Study",
+      "searchProvider": "tavily",
+      "keywords": [
+        "capability heat map case study outcome",
+        "role conflict organizational redesign case study",
+        "business architecture transformation case study outcome",
+        "capability cross mapping case study bank",
+        "operating model redesign case study financial services",
+        "value stream mapping transformation case study",
+        "org design role clarity case study outcome",
+        "business architecture maturity assessment case study",
+        "RACI matrix redesign case study",
+        "shared services role conflict case study",
+        "enterprise architecture governance case study outcome",
+        "capability rationalization case study bank"
+      ],
+      "excludedDomains": [],
+      "excludedTopics": ["UX friction", "consumer product friction", "checkout friction"],
+      "threshold": 0.6,
+      "maxArticles": 8,
+      "recencyCutoffMonths": 18,
+      "hardAgeLimitMonths": 36,
+      "curatorPrompt": "Include case studies where a named or clearly described organisation applied Business Architecture artifacts (capability maps, value streams, RACI/role matrices, cross-maps) and the writeup describes a concrete structural outcome -- a fault line found, a role conflict resolved, a redesign driven by a capability or accountability gap. Prefer cases with enough specificity to be citable (named institution, described mechanism, described outcome) over generic 'transformation success story' pieces. Exclude pure technology rollout case studies with no organisational design or role/capability angle, and exclude UX/product friction case studies.",
+      "llmProvider": "gemini",
+      "curatorBatchSize": 10
+    }
+  },
+  "matcherPrompt": "Pair Opinion and Case Study articles that share a structural theme relevant to Business Architecture and Friction: role/actor modeling gaps, capability cross-mapping limitations, design-time versus post-hoc detection of organisational fault lines, or accountability/role conflict within capability or value-stream design. A strong pair should let a reader see the conceptual claim in the Opinion piece and a concrete instance of it in the Case Study piece.",
+  "matcherLlmProvider": "gemini",
+  "curatorBatchSize": 10
+}

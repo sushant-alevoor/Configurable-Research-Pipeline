@@ -1,0 +1,50 @@
+name: Run1 - Weekly Search & Curate (BA Friction)
+
+on:
+  # Placeholder for future automatic run -- currently disabled.
+  # Uncomment both lines below (including "schedule:") to enable Sundays 06:00 UTC.
+  # schedule:
+  #   - cron: '0 6 * * 0'
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: 'Config profile name'
+        required: true
+        default: 'research-agent-friction-ba'
+
+jobs:
+  search-curate:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+      EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Restore dedup cache
+        uses: actions/cache@v4
+        with:
+          path: .dedup-cache
+          key: dedup-research-agent-friction-ba-${{ github.run_id }}
+          restore-keys: |
+            dedup-research-agent-friction-ba-
+
+      - name: Run search & curate
+        run: node run1-search-curate.js --profile ${{ github.event.inputs.profile || 'research-agent-friction-ba' }}
+
+      - name: Save dedup cache
+        uses: actions/cache@v4
+        with:
+          path: .dedup-cache
+          key: dedup-research-agent-friction-ba-${{ github.run_id }}
