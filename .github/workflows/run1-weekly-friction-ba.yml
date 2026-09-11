@@ -41,7 +41,7 @@ jobs:
             dedup-research-agent-friction-ba-
 
       - name: Run search & curate
-        run: node run1-search-curate.js --profile ${{ github.event.inputs.profile || 'research-agent-friction-ba' }}
+        run: node run1-search-curate.js "${{ github.event.inputs.profile || 'research-agent-friction-ba' }}"
 
       - name: Save dedup cache
         uses: actions/cache@v4
